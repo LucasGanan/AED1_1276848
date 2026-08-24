@@ -1,2 +1,2 @@
 # AED1_1276848
-AED / Prof. Arilindo
+AED / Prof. Arlindo
