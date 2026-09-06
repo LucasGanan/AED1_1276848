@@ -5,96 +5,150 @@ Linguagem   : C
 Problema    : https://judge.beecrowd.com/pt/problems/view/1383
 Data        : 28/08/2026
 Objetivo    : Escrever um programa que verifica se uma matriz preenchida é ou não uma solução para o problema. Sudoku.
-Dificuldade : Entender a lógica 
-Uso de IA   : Sim, usei para entender a lógica e a verificação dos blocos 
+Dificuldade : Entender a lógica, principalmente de verificar os blocos
+Uso de IA   : Sim, usei para entender a lógica, verificação dos blocos e organização
 -------------------------------------------------------------------------- */
 
 #include <stdio.h>
 
-int verifica(int v[9]) {
-    int usado[10] = {0};
+// Verifica se existe algum número repetido nas linhas
+int verifica_linha(int sudoku[9][9]) {
+    int i, j, k, ref;
 
-    for (int i = 0; i < 9; i++) {
-        if (v[i] < 1 || v[i] > 9) {
-            return 0;
+    // Percorre as 9 linhas
+    for (i = 0; i < 9; i++) {
+
+        // Escolhe um número da linha como referência
+        for (k = 0; k < 9; k++) {
+            ref = sudoku[i][k];
+
+            // Compara a referência com os números que vêm depois dela
+            for (j = k + 1; j < 9; j++) {
+                if (ref == sudoku[i][j]) {
+                    return 0; // Encontrou número repetido
+                }
+            }
         }
-
-        if (usado[v[i]] == 1) {
-            return 0;
-        }
-
-        usado[v[i]] = 1;
     }
 
-    return 1;
+    return 1; // Nenhuma repetição encontrada
 }
 
-int main() {
 
-    int n;
-    scanf("%d", &n);
+// Verifica se existe algum número repetido nas colunas
+int verifica_coluna(int sudoku[9][9]) {
+    int i, j, k, ref;
 
-    for (int instancia = 1; instancia <= n; instancia++) {
+    // Percorre as 9 colunas
+    for (j = 0; j < 9; j++) {
 
-        int sudoku[9][9];
-        int valido = 1;
+        // Escolhe um número da coluna como referência
+        for (k = 0; k < 9; k++) {
+            ref = sudoku[k][j];
 
-        // Lê a matriz
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                scanf("%d", &sudoku[i][j]);
+            // Compara a referência com os números abaixo dela
+            for (i = k + 1; i < 9; i++) {
+                if (ref == sudoku[i][j]) {
+                    return 0; // Encontrou número repetido
+                }
             }
         }
+    }
 
-        // Verifica as linhas
-        for (int i = 0; i < 9; i++) {
-            int v[9];
+    return 1; // Nenhuma repetição encontrada
+}
 
-            for (int j = 0; j < 9; j++) {
-                v[j] = sudoku[i][j];
-            }
 
-            if (!verifica(v)) {
-                valido = 0;
-            }
-        }
+// Verifica se existe algum número repetido nos blocos 3x3
+int verifica_bloco(int sudoku[9][9]) {
+    int i, j, k, n, a, b, c, d;
 
-        // Verifica as colunas
-        for (int j = 0; j < 9; j++) {
-            int v[9];
+    // b e c indicam onde começa cada bloco 3x3
+    for (c = 0; c < 9; c += 3) {
+        for (b = 0; b < 9; b += 3) {
 
-            for (int i = 0; i < 9; i++) {
-                v[i] = sudoku[i][j];
-            }
+            // Percorre os 9 números do bloco
+            for (i = b; i < b + 3; i++) {
+                for (j = c; j < c + 3; j++) {
 
-            if (!verifica(v)) {
-                valido = 0;
-            }
-        }
+                    // Escolhe um número do bloco como referência
+                    n = sudoku[i][j];
 
-        // Verifica as regiões 3x3
-        for (int linha = 0; linha < 9; linha += 3) {
-            for (int coluna = 0; coluna < 9; coluna += 3) {
+                    // Procura o mesmo número dentro do bloco
+                    for (k = b; k < b + 3; k++) {
+                        for (a = c; a < c + 3; a++) {
 
-                int v[9];
-                int k = 0;
-
-                for (int i = linha; i < linha + 3; i++) {
-                    for (int j = coluna; j < coluna + 3; j++) {
-                        v[k] = sudoku[i][j];
-                        k++;
+                            // Verifica se encontrou o mesmo número
+                            // em uma posição diferente
+                            if (n == sudoku[k][a] && !(k == i && a == j)) {
+                                return 0; // Número repetido
+                            }
+                        }
                     }
                 }
-
-                if (!verifica(v)) {
-                    valido = 0;
-                }
             }
         }
+    }
 
-        printf("Instancia %d\n", instancia);
+    return 1; // Nenhuma repetição encontrada
+}
 
-        if (valido) {
+
+// Verifica as linhas, colunas e blocos
+int verifica_sudoku(int sudoku[9][9]) {
+
+    // Se alguma das verificações falhar, o Sudoku é inválido
+    if (!verifica_linha(sudoku)) {
+        return 0;
+    }
+
+    if (!verifica_coluna(sudoku)) {
+        return 0;
+    }
+
+    if (!verifica_bloco(sudoku)) {
+        return 0;
+    }
+
+    return 1; // Todas as verificações passaram
+}
+
+
+// Lê os números do Sudoku e depois verifica se ele é válido
+int preenche_verifica(int sudoku[9][9]) {
+    int i, j;
+
+    // Preenche a matriz 9x9
+    for (i = 0; i < 9; i++) {
+        for (j = 0; j < 9; j++) {
+            scanf("%d", &sudoku[i][j]);
+
+            // Os valores devem estar entre 1 e 9
+            if (sudoku[i][j] < 1 || sudoku[i][j] > 9) {
+                return 0;
+            }
+        }
+    }
+
+    // Depois de preencher, verifica o Sudoku
+    return verifica_sudoku(sudoku);
+}
+
+
+int main() {
+    int i, n;
+    int sudoku[9][9];
+
+    // Lê a quantidade de Sudokus que serão analisados
+    scanf("%d", &n);
+
+    // Repete para cada instância
+    for (i = 1; i <= n; i++) {
+
+        // Lê o Sudoku e verifica se ele é válido
+        printf("Instancia %d\n", i);
+
+        if (preenche_verifica(sudoku)) {
             printf("SIM\n\n");
         } else {
             printf("NAO\n\n");
