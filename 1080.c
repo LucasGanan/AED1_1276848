@@ -15,20 +15,28 @@ int main() {
 
     int v[100];
 
+    // Lê os 100 valores e guarda cada um no vetor
     for (int i = 0; i < 100; i++) {
         scanf("%d", &v[i]);
     }
 
+    // Considera o primeiro valor como o maior inicialmente
+    // A posição começa em 1, pois a questão considera posições de 1 a 100
     int posicao = 1;
     int maior = v[0];
 
+    // Percorre o restante do vetor procurando um valor maior
     for (int i = 1; i < 100; i++) {
+
+        // Se encontrar um valor maior que o maior atual,
+        // atualiza o maior valor e sua posição
         if (v[i] > maior) {
             maior = v[i];
             posicao = i + 1;
         }
     }
 
+    // Mostra o maior valor encontrado e sua posição
     printf("%d\n%d\n", maior, posicao);
 
     return 0;
