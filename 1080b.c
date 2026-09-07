@@ -10,7 +10,7 @@ Uso de IA   : Usei para entender alocação dinâmica e fazer comentários no c�
 -------------------------------------------------------------------------- */
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //biblioteca do malloc e free
 
 int main() {
 
@@ -20,6 +20,7 @@ int main() {
 
     // Aloca espaço na memória para 100 inteiros
     v = malloc(100 * sizeof(int)); // 100 × tamanho de um int
+    //tbm poderia ser v = (int *) malloc(100 * sizeof(int));
 
     // Lê os 100 valores e guarda cada um no vetor
     for (int i = 0; i < 100; i++) {
