@@ -19,7 +19,7 @@ int main() {
     int *v;
 
     // Aloca espaço na memória para 100 inteiros
-    v = malloc(100 * sizeof(int));
+    v = malloc(100 * sizeof(int)); // 100 × tamanho de um int
 
     // Lê os 100 valores e guarda cada um no vetor
     for (int i = 0; i < 100; i++) {
