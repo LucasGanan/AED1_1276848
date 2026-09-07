@@ -1,3 +1,14 @@
+/* --------------------------------------------------------------------------
+Disciplina  : Algoritmo e Estrutura de Dados 2026S1
+Nome        : Lucas Gabriel Ganan de Souza
+Linguagem   : C
+Problema    : https://judge.beecrowd.com/pt/problems/view/1383
+Data        : 01/09/2026
+Objetivo    : Escrever um programa que verifica se uma matriz preenchida é ou não uma solução para o problema. Sudoku. Com alocação dinâmica de matriz
+Dificuldade : Entender a lógica da alocação dinâmica de matriz
+Uso de IA   : Sim, usei para corrigir minha alocação pos a lógica estava errada
+-------------------------------------------------------------------------- */
+
 #include <stdio.h>
 #include <stdlib.h> //biblioteca do malloc e free
 
