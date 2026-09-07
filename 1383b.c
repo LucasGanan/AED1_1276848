@@ -145,11 +145,11 @@ int main() {
     scanf("%d", &n);
 
     // Aloca espaço para as 9 linhas da matriz
-    sudoku = malloc(9 * sizeof(int *));
+    sudoku = malloc(9 * sizeof(int *)); // tbm poderia ser: sudoku = (int **) malloc(9 * sizeof(int *));
 
     // Aloca espaço para os 9 números de cada linha
     for (i = 0; i < 9; i++) {
-        sudoku[i] = malloc(9 * sizeof(int));
+        sudoku[i] = malloc(9 * sizeof(int)); // tbm poderia ser: sudoku[i] = (int *) malloc(9 * sizeof(int));
     }
 
     // Repete para cada instância
