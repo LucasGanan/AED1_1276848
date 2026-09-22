@@ -1,3 +1,15 @@
+/* --------------------------------------------------------------------------
+Disciplina  : Algoritmo e Estrutura de Dados 2026S1
+Nome        : Lucas Gabriel Ganan de Souza
+Linguagem   : C
+Problema    : https://judge.beecrowd.com/pt/problems/view/1110
+Data        : 15/09/2026
+Objetivo    : O objetivo do exercício é simular o descarte e a movimentação de cartas em uma pilha, utilizando uma lista encadeada, até que reste apenas uma carta. 
+Ao final, deve-se apresentar a sequência de cartas descartadas e a carta restante para cada valor de entrada, encerrando o processamento quando for informado o número 0.
+Dificuldade : Entender a lista encadeada
+Uso de IA   : Sim, usei para corrigir minha lógica
+-------------------------------------------------------------------------- */
+
 #include <stdio.h>
 #include <stdlib.h>
 
