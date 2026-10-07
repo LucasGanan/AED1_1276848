@@ -20,23 +20,19 @@ typedef struct {
     char itens[TAM_MAX];
     int topo;
 } Pilha;
-
 // Função para inicializar a pilha
 void inicializarPilha(Pilha *p) {
     p->topo = -1;
 }
-
 // Função para verificar se a pilha está vazia
 int estaVazia(Pilha *p) {
     return p->topo == -1;
 }
-
 // Função para empilhar (push) um caractere
 void empilhar(Pilha *p, char c) {
     p->topo++;
     p->itens[p->topo] = c;
 }
-
 // Função para desempilhar (pop) um caractere
 void desempilhar(Pilha *p) {
     if (!estaVazia(p)) {
@@ -48,7 +44,6 @@ void desempilhar(Pilha *p) {
 int verificarExpressao(const char *expressao) {
     Pilha pilha;
     inicializarPilha(&pilha);
-
     for (int i = 0; expressao[i] != '\0'; i++) {
         // Se encontrar um parêntese de abertura '(', empilha
         if (expressao[i] == '(') {
@@ -64,7 +59,6 @@ int verificarExpressao(const char *expressao) {
             desempilhar(&pilha);
         }
     }
-
     // Se a pilha estiver vazia no final, todos os '(' foram fechados corretamente
     return estaVazia(&pilha);
 }
@@ -76,12 +70,10 @@ int main() {
     while (fgets(expressao, sizeof(expressao), stdin) != NULL) {
         // Remove a quebra de linha (\n ou \r) do final da string, se houver
         expressao[strcspn(expressao, "\r\n")] = '\0';
-
         // Ignora linhas totalmente vazias
         if (strlen(expressao) == 0) {
             continue;
         }
-
         // Verifica a validade e exibe "correct" ou "incorrect"
         if (verificarExpressao(expressao)) {
             printf("correct\n");
@@ -89,6 +81,5 @@ int main() {
             printf("incorrect\n");
         }
     }
-
     return 0;
 }
